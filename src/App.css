@@ -1,8 +1,28 @@
 #root {
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+}
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.error-message {
+  font-size: 22px;
+  text-align: left;
+}
+
+.app {
+  width: 100%;
+  max-width: 1200px;
+
+  margin-top: 20px;
 }
 
 .logo {

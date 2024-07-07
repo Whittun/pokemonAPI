@@ -38,7 +38,7 @@ export class ErrorBoundary extends React.Component<
     }
 
     return (
-      <div>
+      <div className="app-wrapper">
         <button onClick={() => this.setState({ hasError: true })}>
           throw error
         </button>

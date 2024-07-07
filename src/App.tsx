@@ -80,7 +80,7 @@ export class App extends React.Component<AppProps, AppState> {
             inputValue={this.state.inputValue}
           />
           {this.state.error ? (
-            <div>{this.state.error}</div>
+            <p className="error-message">{this.state.error}</p>
           ) : (
             <Cards
               isLoading={this.state.isLoading}

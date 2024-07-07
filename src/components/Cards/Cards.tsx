@@ -1,6 +1,8 @@
 import React from 'react';
 import { Card } from '../Card/Card';
 
+import './Cards.css';
+
 interface Pokemon {
   name: string;
   image: string;
@@ -14,13 +16,8 @@ interface CardsProps {
 export class Cards extends React.Component<CardsProps> {
   render() {
     if (this.props.isLoading) {
-      return <div>Loading...</div>;
+      return <p className="cards__load">Loading...</p>;
     }
-
-    if (this.props.pokemons.length === 0) {
-      return <div>No Pokemon found</div>;
-    }
-
     return (
       <section className="cards">
         <ul className="cards__list">
