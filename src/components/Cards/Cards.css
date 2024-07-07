@@ -21,10 +21,10 @@
 .cards__item {
   padding: 20px;
 
-  color: rgba(16, 37, 78, 0.579);
+  color: rgba(11, 7, 62, 0.579);
 
   border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.473);
+  background-color: rgba(255, 255, 255, 0.596);
 }
 
 .cards__load {
