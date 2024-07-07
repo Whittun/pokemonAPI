@@ -59,7 +59,7 @@ export class App extends React.Component<AppProps, AppState> {
 
     try {
       const data = await getPokemons(BASE_URL, searchValue);
-      console.log('data', data);
+
       this.setState({ pokemons: data, isLoading: false });
     } catch (error) {
       this.setState({
