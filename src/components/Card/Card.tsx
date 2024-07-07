@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 interface CardProps {
   title: string;
-  description: string;
+  image: string;
 }
 
 export class Card extends React.Component<CardProps> {
@@ -14,7 +14,11 @@ export class Card extends React.Component<CardProps> {
     return (
       <li className="cards__item">
         <h2 className="cards__title">{this.props.title}</h2>
-        <p className="cards__text">{this.props.description}</p>
+        <img
+          className="cards__image"
+          src={this.props.image}
+          alt={this.props.title}
+        />
       </li>
     );
   }
