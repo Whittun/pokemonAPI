@@ -1,0 +1,33 @@
+.cards__list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 0;
+  gap: 20px;
+
+  list-style: none;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 670px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 472px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.cards__item {
+  padding: 20px;
+
+  color: rgba(11, 7, 62, 0.579);
+
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.596);
+}
+
+.cards__load {
+  font-size: 22px;
+  text-align: left;
+}
