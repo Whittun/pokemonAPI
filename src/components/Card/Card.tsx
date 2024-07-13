@@ -1,25 +1,15 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
-interface CardProps {
-  title: string;
+interface PropsType {
   image: string;
+  title: string;
 }
 
-export class Card extends React.Component<CardProps> {
-  constructor(props: CardProps) {
-    super(props);
-  }
-
-  render(): ReactNode {
-    return (
-      <li className="cards__item">
-        <h2 className="cards__title">{this.props.title}</h2>
-        <img
-          className="cards__image"
-          src={this.props.image}
-          alt={this.props.title}
-        />
-      </li>
-    );
-  }
-}
+export const Card = ({ image, title }: PropsType): ReactNode => {
+  return (
+    <li className="cards__item">
+      <h2 className="cards__title">{title}</h2>
+      <img className="cards__image" src={image} alt={title} />
+    </li>
+  );
+};

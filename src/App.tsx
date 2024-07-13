@@ -1,4 +1,11 @@
-import React, { ChangeEvent, ReactNode, FormEvent } from 'react';
+import {
+  ChangeEvent,
+  ReactNode,
+  FormEvent,
+  useState,
+  useEffect,
+  useRef,
+} from 'react';
 import './App.css';
 import { Search } from './components/Search/Search';
 import { Cards } from './components/Cards/Cards';
@@ -7,90 +14,71 @@ import { BASE_URL } from './api/apiConfig';
 import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary';
 import { Pokemon } from './api/types/types';
 
-interface AppProps {}
+export const App = (): ReactNode => {
+  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [inputValue, setInputValue] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
-interface AppState {
-  pokemons: Pokemon[];
-  isLoading: boolean;
-  inputValue: string;
-  error: string | null;
-}
+  const initialRender = useRef(true);
 
-export class App extends React.Component<AppProps, AppState> {
-  constructor(props: AppProps) {
-    super(props);
+  useEffect(() => {
+    const searchValue = localStorage.getItem('search') || '';
 
-    this.state = {
-      pokemons: [],
-      isLoading: false,
-      inputValue: '',
-      error: null,
-    };
-  }
+    setInputValue(searchValue);
+    fetchPokemons(searchValue);
+  }, []);
 
-  componentDidMount(): void {
-    const searchValue = localStorage.getItem('search');
-
-    if (searchValue) {
-      this.setState({ inputValue: searchValue });
-      this.fetchPokemons(searchValue);
+  useEffect(() => {
+    if (initialRender.current) {
+      initialRender.current = false;
     } else {
-      this.fetchPokemons('');
+      localStorage.setItem('search', inputValue);
     }
-  }
+  }, [inputValue]);
 
-  componentDidUpdate(prevState: AppState): void {
-    if (prevState.inputValue !== this.state.inputValue) {
-      localStorage.setItem('search', this.state.inputValue);
-    }
-  }
-
-  handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ inputValue: e.target.value });
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
   };
 
-  handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    this.fetchPokemons(this.state.inputValue);
+    fetchPokemons(inputValue);
   };
 
-  fetchPokemons = async (searchValue: string) => {
-    this.setState({ isLoading: true, error: null });
+  const fetchPokemons = async (searchValue: string) => {
+    setIsLoading(true);
+    setError(null);
 
     try {
       const data = await getPokemons(BASE_URL, searchValue);
 
-      this.setState({ pokemons: data, isLoading: false });
+      setPokemons(data);
+      setIsLoading(false);
     } catch (error) {
-      this.setState({
-        pokemons: [],
-        isLoading: false,
-        error: (error as Error).message,
-      });
+      setPokemons([]);
+      setIsLoading(false);
+
+      if (error instanceof Error) {
+        setError(error.message);
+      }
     }
   };
 
-  render(): ReactNode {
-    return (
-      <ErrorBoundary>
-        <div className="app">
-          <Search
-            handleInputChange={this.handleInputChange}
-            handleSubmit={this.handleSubmit}
-            inputValue={this.state.inputValue}
-          />
-          {this.state.error ? (
-            <p className="error-message">{this.state.error}</p>
-          ) : (
-            <Cards
-              isLoading={this.state.isLoading}
-              pokemons={this.state.pokemons}
-            />
-          )}
-        </div>
-      </ErrorBoundary>
-    );
-  }
-}
-
-export default App;
+  return (
+    <ErrorBoundary>
+      <div className="app">
+        <Search
+          handleInputChange={handleInputChange}
+          handleSubmit={handleSubmit}
+          inputValue={inputValue}
+        />
+        {error ? (
+          <p className="error-message">{error}</p>
+        ) : (
+          <Cards isLoading={isLoading} pokemons={pokemons} />
+        )}
+      </div>
+    </ErrorBoundary>
+  );
+};

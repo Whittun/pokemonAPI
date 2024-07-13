@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent } from 'react';
+import { ChangeEvent, FormEvent, ReactNode } from 'react';
 
 import './Search.css';
 
@@ -8,22 +8,24 @@ interface SearchProps {
   inputValue: string;
 }
 
-export class Search extends React.Component<SearchProps> {
-  render() {
-    return (
-      <section className="search">
-        <form className="search__form" onSubmit={this.props.handleSubmit}>
-          <input
-            className="search__input"
-            type="text"
-            value={this.props.inputValue}
-            onChange={this.props.handleInputChange}
-          />
-          <button type="submit" className="search__button">
-            Search
-          </button>
-        </form>
-      </section>
-    );
-  }
-}
+export const Search = ({
+  handleInputChange,
+  handleSubmit,
+  inputValue,
+}: SearchProps): ReactNode => {
+  return (
+    <section className="search">
+      <form className="search__form" onSubmit={handleSubmit}>
+        <input
+          className="search__input"
+          type="text"
+          value={inputValue}
+          onChange={handleInputChange}
+        />
+        <button type="submit" className="search__button">
+          Search
+        </button>
+      </form>
+    </section>
+  );
+};

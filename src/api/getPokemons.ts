@@ -1,6 +1,9 @@
-import { PokemonResult } from './types/types';
+import { Pokemon, PokemonResult } from './types/types';
 
-export const getPokemons = async (baseUrl: string, targetUrl: string = '') => {
+export const getPokemons = async (
+  baseUrl: string,
+  targetUrl: string = '',
+): Promise<Pokemon[]> => {
   const url =
     targetUrl.trim() === ''
       ? baseUrl
