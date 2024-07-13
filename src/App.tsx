@@ -11,8 +11,9 @@ import { Search } from './components/Search/Search';
 import { Cards } from './components/Cards/Cards';
 import { getPokemons } from './api/getPokemons';
 import { BASE_URL } from './api/apiConfig';
-import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary';
 import { Pokemon } from './api/types/types';
+import { Route, Routes } from 'react-router-dom';
+import { NotFound } from './components/NotFound/NotFound';
 
 export const App = (): ReactNode => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -66,19 +67,27 @@ export const App = (): ReactNode => {
   };
 
   return (
-    <ErrorBoundary>
-      <div className="app">
-        <Search
-          handleInputChange={handleInputChange}
-          handleSubmit={handleSubmit}
-          inputValue={inputValue}
-        />
-        {error ? (
-          <p className="error-message">{error}</p>
-        ) : (
-          <Cards isLoading={isLoading} pokemons={pokemons} />
-        )}
-      </div>
-    </ErrorBoundary>
+    <div className="app">
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div>
+              <Search
+                handleInputChange={handleInputChange}
+                handleSubmit={handleSubmit}
+                inputValue={inputValue}
+              />
+              {error ? (
+                <p className="error-message">{error}</p>
+              ) : (
+                <Cards isLoading={isLoading} pokemons={pokemons} />
+              )}
+            </div>
+          }
+        ></Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </div>
   );
 };
