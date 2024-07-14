@@ -5,15 +5,22 @@
   gap: 20px;
 
   list-style: none;
+}
 
-  @media (max-width: 1200px) {
+@media (max-width: 1200px) {
+  .cards__list {
     grid-template-columns: repeat(3, 1fr);
   }
+}
 
-  @media (max-width: 670px) {
+@media (max-width: 670px) {
+  .cards__list {
     grid-template-columns: repeat(2, 1fr);
   }
-  @media (max-width: 472px) {
+}
+
+@media (max-width: 472px) {
+  .cards__list {
     grid-template-columns: repeat(1, 1fr);
   }
 }
