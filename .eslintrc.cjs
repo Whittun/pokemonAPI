@@ -17,5 +17,6 @@ module.exports = {
     ],
     'react-compiler/react-compiler': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
+    'react-hooks/exhaustive-deps': 'off',
   },
 };
