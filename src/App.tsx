@@ -62,11 +62,7 @@ export const App = (): ReactNode => {
                 handleSubmit={handleSubmit}
                 inputValue={searchValue}
               />
-              {error ? (
-                <p className="error-message">{error}</p>
-              ) : (
-                <Cards isLoading={isLoading} pokemons={pokemons} />
-              )}
+              <Cards error={error} isLoading={isLoading} pokemons={pokemons} />
             </div>
           }
         ></Route>
